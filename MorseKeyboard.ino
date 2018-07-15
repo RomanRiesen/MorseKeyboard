@@ -15,15 +15,15 @@ It is very restrictive in it's current state though, as it does not have any spe
 
 #define HEAP_SIZE 32//The number of heap leaves.
 #define UPPER_LETTER_TIME 600 //How long to wait till the current character is set as final
-#define MAX_POINT_TIME 170 //the duration of a dot
+#define MAX_POINT_TIME 170 //The duration of a dot
 #define MAX_DASH_TIME 800 //The duration of a dash
 #define DEBOUNCE_TIME 10 //Exactly what it sounds like
 
-int buttonPin = 9;  // Set a button to any pin
+int buttonPin = 9;// Set a button to any pin
 bool wasDown = false;
 unsigned long pos = 1; //Holds the curent position of the morseHeap
 unsigned int downT, upT;
-unsigned long lastUpT, lastDownT;
+unsigned long lastUpT, lastDownT; // The duration since the last Up/Down change of the state of the switch
 
 //+1 due to the 1-indexing.
 char const * morseHeap[HEAP_SIZE+1] = {'ONE INDEXED!', 'start', 'E', 'T', 'I', 'A', 'N', 'M', 'S', 'U', 'R', 'W', 'D', 'K', 'G', 'O', 'H', 'V', 'F', '\0', 'L', '\0', 'P', 'J', 'B', 'X', 'C', 'Y', 'Q', 'Z', '\0', ' '};
