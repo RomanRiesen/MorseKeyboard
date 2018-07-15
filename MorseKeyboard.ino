@@ -6,7 +6,9 @@ No restrictions. Just keep this license if you go on to use this
 code in your future endeavors! Reuse and share.
 
 This code lets you use your pro micro (or similar) with a button as a morse-keyboard.
-I believe it is newb friendly, as it displays the current char when morsing and deletes when the next symbol is registred.
+I believe it is newb friendly, as it displays the current char when morsing and sends a backspace when the next symbol is registred.
+(Resulting in a sort of preview).
+To delete something, just hammer on your switch enough times.
 It is very restrictive in it's current state though, as it does not have any special characters and not even lower case letters.
 */
 #include <Keyboard.h>
@@ -25,7 +27,6 @@ unsigned long lastUpT, lastDownT;
 
 //+1 due to the 1-indexing.
 char const * morseHeap[HEAP_SIZE+1] = {'ONE INDEXED!', 'start', 'E', 'T', 'I', 'A', 'N', 'M', 'S', 'U', 'R', 'W', 'D', 'K', 'G', 'O', 'H', 'V', 'F', '\0', 'L', '\0', 'P', 'J', 'B', 'X', 'C', 'Y', 'Q', 'Z', '\0', ' '};
-
 
 void setup()
 {
