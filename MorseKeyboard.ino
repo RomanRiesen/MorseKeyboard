@@ -14,10 +14,10 @@ It is very restrictive in it's current state though, as it does not have any spe
 #include <Keyboard.h>
 
 #define HEAP_SIZE 32//The number of heap leaves.
-#define UPPER_LETTER_TIME 600
-#define MAX_POINT_TIME 170
-#define MAX_DASH_TIME 800
-#define DEBOUNCE_TIME 10
+#define UPPER_LETTER_TIME 600 //How long to wait till the current character is set as final
+#define MAX_POINT_TIME 170 //the duration of a dot
+#define MAX_DASH_TIME 800 //The duration of a dash
+#define DEBOUNCE_TIME 10 //Exactly what it sounds like
 
 int buttonPin = 9;  // Set a button to any pin
 bool wasDown = false;
@@ -40,7 +40,7 @@ void loop()
 
   if ( !wasDown && !digitalRead(buttonPin) ) {//Button is pressed now
     wasDown = true;
-    upT = millis() - lastUpT;
+    //upT = millis() - lastUpT;
     lastDownT = millis();
   }
 
