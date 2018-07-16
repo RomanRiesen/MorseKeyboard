@@ -14,18 +14,18 @@ It is very restrictive in it's current state though, as it does not have any spe
 
 #include <Keyboard.h>
 
-#define HEAP_SIZE 32//The number of heap leaves.
+#define HEAP_SIZE 64//The number of heap leaves.
 #define MAX_POINT_TIME 170 //the duration of a dot
 #define MAX_DASH_TIME 3*MAX_POINT_TIME //The duration of a dash
 #define LETTER_PAUSE MAX_DASH_TIME //How long to wait till the current character is set as final
 #define WORD_PAUSE 7*MAX_POINT_TIME//After this time passed space is wirten
 #define DEBOUNCE_TIME 10 //Exactly what it sounds like
 
-//You might want to make sure one of these is 1 as else there is no way to write a space
-#define USE_LONG_PRESS_SPACE 0 //Whether to let the user press longer than a dash to print space
-#define USE_TIMED_SPACE 1 //Wheter to print a space after WORD_PAUSE has passed with no input
+//You might want to make sure one of these is 1 as else you can only write a space with 4 dashes (which is not set to CH as that would mess with the deletion of the previously reached char in the input)
+#define USE_LONG_PRESS_SPACE 1 //Whether to let the user press longer than a dash to print space
+#define USE_TIMED_SPACE 0 //Wheter to print a space after WORD_PAUSE has passed with no input
 
-int buttonPin = 9;  // Set a button to any pin
+const int buttonPin = 9;  // Set a button to any pin
 bool wasDown = false;
 bool timedSpaceWritten = true;//So I only send one space for each time there is no input for long enoug after an input.
 unsigned long pos = 1; //Holds the curent position of the morseHeap
@@ -34,18 +34,20 @@ unsigned long lastUpT, lastDownT;
 
 
 //+1 due to the 1-indexing. //Do not change ' ' as else you would have to do some rewriting concerning the USE_LONG_PRESS_SPACE stuff
-char const * morseHeap[HEAP_SIZE+1] = {'ONE INDEXED!', ' ', 'E', 'T', 'I', 'A', 'N', 'M', 'S', 'U', 'R', 'W', 'D', 'K', 'G', 'O', 'H', 'V', 'F', '\0', 'L', '\0', 'P', 'J', 'B', 'X', 'C', 'Y', 'Q', 'Z', '\0', '\0'};
+char const * morseHeap[HEAP_SIZE+1] = {"ONE INDEXED!", " ", "E", "T", "I", "A", "N", "M", "S", "U", "R", "W", "D", "K", "G", "O", "H", "V", "F", "\"U", "L", "\"A", "P", "J", "B", "X", "C", "Y", "Z", "Q", "\"O", " ", "5", "4", "\0", "3", "\0", "\0", "\0", "2", "\0" , "\0", "+", "\0", "\0", "\0", "\0", "1", "6", "=", "/", "\0", "\0", "\0", "\0", "\0", "7", "\0", "\0", "\0", "8", "\0", "9", "0"};
+
 
 void setup()
 {
   pinMode(buttonPin, INPUT);  // Set the button as an input
   digitalWrite(buttonPin, HIGH);  // Pull the button high
+  Keyboard.begin();
 }
 
 void loop()
 {//TODO make some sort of "pro-mode" that does not update the letter as one types the morse-char and just displays it after 600ms or similar.
   if ( millis() - lastUpT > LETTER_PAUSE && !digitalRead(buttonPin)) {pos = 1;}
-  if ( USE_TIMED_SPACE && millis() - lastUpT > WORD_PAUSE && !timedSpaceWritten){pos = 1; Keyboard.write(' '); timedSpaceWritten = true;}
+  if ( USE_TIMED_SPACE && millis() - lastUpT > WORD_PAUSE && !timedSpaceWritten) {pos = 1; Keyboard.write(' '); timedSpaceWritten = true;}
 
   if ( !wasDown && !digitalRead(buttonPin) ) {//Switch gets pressed
     //upT = millis() - lastUpT;
@@ -69,8 +71,9 @@ void loop()
             Keyboard.write('\b');
         }
 
-        if ( pos < HEAP_SIZE && !USE_LONG_PRESS_SPACE && !pos == 1 )//Do nothing, if pos == 0 as we would not want a space.
-            Keyboard.write( morseHeap[pos] );
+        if ( pos < HEAP_SIZE )//Do nothing, if pos == 0 as we would not want a space.
+            if ( !USE_LONG_PRESS_SPACE && pos == 1) ;
+            else Keyboard.print( morseHeap[pos] );
 
         lastUpT = millis();
         wasDown = false;
