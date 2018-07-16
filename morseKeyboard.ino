@@ -18,12 +18,12 @@ It is very restrictive in it's current state though, as it does not have any spe
 #define MAX_POINT_TIME 170 //the duration of a dot
 #define MAX_DASH_TIME 3*MAX_POINT_TIME //The duration of a dash
 #define LETTER_PAUSE MAX_DASH_TIME //How long to wait till the current character is set as final
-#define WORD_PAUSE 7*MAX_POINT_TIME//Actual definition of end of word.
+#define WORD_PAUSE 7*MAX_POINT_TIME//After this time passed space is wirten
 #define DEBOUNCE_TIME 10 //Exactly what it sounds like
 
 //You might want to make sure one of these is 1 as else there is no way to write a space
-#define USE_LONG_PRESS_SPACE 0 //Whether to let the user press longer than a dash to print spacel
-#define USE_TIMED_SPACE 0 //Whether to let the user press longer than a dash to print spacel
+#define USE_LONG_PRESS_SPACE 0 //Whether to let the user press longer than a dash to print space
+#define USE_TIMED_SPACE 1 //Wheter to print a space after WORD_PAUSE has passed with no input
 
 int buttonPin = 9;  // Set a button to any pin
 bool wasDown = false;
@@ -47,11 +47,11 @@ void loop()
   if ( millis() - lastUpT > LETTER_PAUSE && !digitalRead(buttonPin)) {pos = 1;}
   if ( USE_TIMED_SPACE && millis() - lastUpT > WORD_PAUSE && !timedSpaceWritten){pos = 1; Keyboard.write(' '); timedSpaceWritten = true;}
 
-  if ( !wasDown && !digitalRead(buttonPin) ) {//Button is pressed now
-    wasDown = true;
+  if ( !wasDown && !digitalRead(buttonPin) ) {//Switch gets pressed
     //upT = millis() - lastUpT;
     lastDownT = millis();
-    timedSpaceWritten = false;//After button is pressed the space written after a long enough pause
+    timedSpaceWritten = false;//After down press, reset
+    wasDown = true;
   }
 
   if ( wasDown && digitalRead(buttonPin) ){//Switch gets released
