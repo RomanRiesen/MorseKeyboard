@@ -1,0 +1,101 @@
+
+\begin{tikzpicture}[level 1/.style={sibling distance=8cm}, level 2/.style={sibling distance=4cm}, level 3/.style={sibling distance=2cm}, level 4/.style={sibling distance=1cm}, level 5/.style={sibling distance=5mm}]
+\node (start) {start}
+child {node (E) {E} edge from parent[dashed]
+    child {node (I) {I} edge from parent[dashed]
+            child {node (S) {S} edge from parent[dashed]
+                child {node (H) {H} edge from parent[dashed]
+                    child {node (5) {5} edge from parent[dashed]}
+                    child {node (4) {4} edge from parent[solid]}
+                }
+               child {node (V) {V} edge from parent[solid]
+                    child {node (empty) {} edge from parent[dashed]}
+                    child {node (3) {3} edge from parent[solid]}
+                    }
+            }
+            child {node (U) {U} edge from parent[solid]
+                child {node (F) {F} edge from parent[dashed]
+                    child {node (dot) {.} edge from parent[dashed]}
+                    child {node (comma) {,} edge from parent[solid]}
+                }
+                child {node ("U) {"U} edge from parent[solid]
+                    child {node (empty) {} edge from parent[dashed]}
+                    child {node (2) {2} edge from parent[solid]}
+               }
+            }
+       }
+    child {node (A) {A} edge from parent[solid]
+            child {node (R) {R} edge from parent[dashed]
+                child {node (L) {L} edge from parent[dashed]
+                    child {node (empty) {} edge from parent[dashed]}
+                    child {node (empty) {} edge from parent[solid]}
+               }
+                child {node ("A) {"A} edge from parent[solid]
+                    child {node (sign+) {+} edge from parent[dashed]}
+                    child {node (sign-) {-} edge from parent[solid]}
+                }
+            }
+            child {node (W) {W} edge from parent[solid]
+               child {node (P) {P} edge from parent[dashed]
+                    child {node (empty) {} edge from parent[dashed]}
+                    child {node (empty) {} edge from parent[solid]}
+               }
+               child {node (J) {J} edge from parent[solid]
+                    child {node (empty) {} edge from parent[dashed]}
+                    child {node (1) {1} edge from parent[solid]}
+               }
+            }
+        }
+    }
+child {node (T) {T} edge from parent[solid]
+    child {node (N) {N} edge from parent[dashed]
+        child {node (D) {D} edge from parent[dashed]
+            child {node (B) {B} edge from parent[dashed]
+                child {node (6) {6} edge from parent[dashed]}
+                child {node (=) {=} edge from parent[solid]}
+            }
+            child {node (X) {X} edge from parent[solid]
+                child {node (/) {/} edge from parent[dashed]}
+                child {node (*) {*} edge from parent[solid]}
+            }
+          }
+          child {node (K) {K} edge from parent[solid]
+            child {node (C) {C} edge from parent[dashed]
+                child {node (empty) {} edge from parent[dashed]}
+                child {node (enter) {ENT} edge from parent[solid]}
+            }
+            child {node (Y) {Y} edge from parent[solid]
+                child {node (empty) {} edge from parent[dashed]}
+                child {node (empty) {} edge from parent[solid]}
+            }
+          }
+     }
+    child {node (M) {M} edge from parent[solid]
+        child {node (G) {G} edge from parent[dashed]
+            child {node (Z) {Z} edge from parent[dashed]
+                child {node (7) {7} edge from parent[dashed]}
+                child {node (empty) {} edge from parent[solid]}
+            }
+            child {node (Q) {Q} edge from parent[solid]
+                child {node (empty) {} edge from parent[dashed]}
+                child {node (empty) {} edge from parent[solid]}
+            }
+            }
+        child {node (O) {O} edge from parent[solid]
+            child {node ("O) {"O} edge from parent[dashed]
+                child {node (8) {8} edge from parent[dashed]}
+                child {node (empty) {} edge from parent[solid]}
+            }
+            child {node (" ") {" "} edge from parent[solid]
+                child {node (9) {9} edge from parent[dashed]}
+                child {node (0) {0} edge from parent[solid]}
+            }
+            }
+        }
+    }
+;
+
+\path (start) -- (E)[dotted];
+\path (start) -- (T)[dotted];
+
+\end{tikzpicture}

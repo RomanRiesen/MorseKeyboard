@@ -20,7 +20,7 @@
 \includepdf[pages=-]{FrontPage.pdf}
 \newpage
 \setcounter{page}{1}
-    
+
     \tableofcontents{}
     \section{Welcome!}
     The Morse Code Human Interface Device let's you use the full power of \emph{morse code} on your computer;
@@ -29,25 +29,28 @@
 
     \section{Installation}\label{installation}
     To install the device simply connect it with a pc. The drivers should automatically be installed.
-    Due to technical limitations \"A, \"O, \"U are only supported when the computer is set to the US keyboard or similar and might lead to unexpected results otherwise. 
+    Due to technical limitations \"A, \"O, \"U are only supported when the computer is set to the US international keyboard and might lead to unexpected results otherwise.
     \section{The Morse Code used}
-    The code used is mostly the same as the ITU\footnote{International Telecommunication Union} standard, with the addition of German letters, though their support is limited (see section~\ref{installation}). The exact translations can be extracted from figure~\ref{fig:morseTree} on page~\ref{morseTree}.
+    The code used is mostly the same as the ITU\footnote{International Telecommunication Union} standard, with the addition of German letters, though their support is limited (see section~\ref{installation}). Further there are no letters longer than 5 morse signs implemented (except deletion (which is anything longer than that)). The usual ``CH'' is replaced by a space, `` ''.\\
+    Finally a few non-standard codes have been added (as they are longer than 5 signs) such as ``.'', ``,'', -'', ``*'' and insert, ``ENT''.
+    The exact translations can be extracted from figure~\ref{fig:morseTree}.
 
     \begin{description}
 
         \item[Dot-time:] The maximal duration for a dot is about 170ms
         \item[Dash-time:] The maximal duration for a dash is three times that of a dot
         \item[Deletion:] If the length of an input sequence for a single character exceeds 6, the MCHID will delete the previous letter for any further press of the button, until there is no further input for the duration of a dash.
-        \item[Space:] There are two options for spaces (see section~\ref{modifications} on how to select them).
+        \item[Space:] There are three ways to create spaces (see section~\ref{modifications} on how to select them).
             \begin{description}
             \item[Long Press:] By pressing the button longer than a dash-time a space is written.
-            \item[Timed:] After the duration of 7 dots with no input a space is written.
+            \item[Timed:] After the duration of 7 dots of the switch not being pressed a space is written (One can hold the button down to avoid printing anything, if this option is selected and the first one is not).
+            \item[4 dashes:] Probably annoying after a while, but that's why there are other options.
             \end{description}
     \end{description}
-            
+
     \begin{center}
     \label{morseTree}
-    \begin{sidewaysfigure}[h]
+    \begin{sidewaysfigure}[H]
     \input{morseTree.tex}
         \caption{The Tree of the implemented code}
         \label{fig:morseTree}
@@ -55,5 +58,11 @@
     \end{center}
     \section{Modifications}\label{modifications}
     There is already support in the MCHID for some customization, though the intrigued might want to go further; your imagination is the only limit!
+
+    \begin{description}
+        \item[Change Space printing mode:] When Pin 2 is connected to ground (GND) the ``Long Press'' mode is used.\\
+        When pin 3 pin is connected to ground the ``Timed" mode is activated.\\
+        Both modes can be activated simultaniously, though you will need a second connector.
+    \end{description}
 
 \end{document}
