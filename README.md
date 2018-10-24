@@ -1,5 +1,5 @@
 # Morse Keyboard
-![Images](https://imgur.com/104f6MS)
+![Images](https://i.imgur.com/104f6MS.jpg)
 
 Have you always wondered why we need so many keys to do our daily digital chores? We say no longer!
 
